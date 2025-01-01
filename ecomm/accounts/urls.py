@@ -2,8 +2,10 @@ from django.contrib import admin  # Import for admin interface
 from django.urls import path, include  # Import for routing URLs
 from django.conf import settings  # Import for accessing settings
 from django.conf.urls.static import static  # Import for serving static and media files
+from accounts.views import login_page
 
 urlpatterns = [
+     path('login/' , login_page , name="login" ),
     path('admin/', admin.site.urls),  # Admin URL
     # path('', include('home.urls')),  # Example: Include app-specific URLs
 ]
