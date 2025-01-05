@@ -12,10 +12,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')  # Fixed `os.path` usage
+TEMPLATE_DIR = os.path.join(BASE_DIR , 'templates')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -116,14 +115,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'  # URL to access static files
-STATICFILES_DIRS = [BASE_DIR / 'static']  # Local static files for development
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Directory for collected static files in production
+STATIC_ROOT = 'staticfiles'
+STATIC_URL = '/static/'
 
-# Media files (User uploads)
-MEDIA_URL = '/media/'  # URL to access media files
-MEDIA_ROOT = BASE_DIR / 'media'  # Directory where uploaded media files are stored
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+
+STATICFILES_DIR = {
+    os.path.join(BASE_DIR , "public/static")
+}
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'public/static') 
+MEDIA_URL = '/media/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
