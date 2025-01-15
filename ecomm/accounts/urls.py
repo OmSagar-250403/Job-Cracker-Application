@@ -7,7 +7,8 @@ from accounts.views import *
 urlpatterns = [
     path('login/' , login_page , name="login" ),
     path('register/' , register_page , name="register" ),
-    path('admin/', admin.site.urls),  # Admin URL
+    path('admin/', admin.site.urls), 
+     path('activate/<email_token>/' , activate_email , name="activate_email"), # Admin URL
     # path('', include('home.urls')),  # Example: Include app-specific URLs
 ]
 
