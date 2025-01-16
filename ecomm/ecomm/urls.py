@@ -17,16 +17,17 @@ Including another URLconf
 
 
 from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
+from django.urls import path , include
 from django.conf.urls.static import static
-from home.views import *
+from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+
 urlpatterns = [
-    path('', home),
-    path('admin/', admin.site.urls),
+    path('' , include('home.urls') ),
+    #path('product/' , include('products.urls') ),
     path('accounts/' , include('accounts.urls') ),
+    path('admin/', admin.site.urls),
 ]
 
 # Serve static and media files during development

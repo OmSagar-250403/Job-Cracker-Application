@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from products.models import Product
 
-def home(request):
-    list = [
-        {'name': 'John', 'age': 25},
-        {'name': 'Cena', 'age': 34}
-    ]
-    return render(request, 'home.html', context={'peoples': list, 'page': 'Home'})
+
+
+def index(request):
+
+    context = {'products' : Product.objects.all()}
+    return render(request , 'home/index.html' , context)
