@@ -18,6 +18,7 @@ def home(request):
             'companies':companies,
         }
         return render(request,'Jobseeker.html',context)
+    
 
 def logoutUser(request):
     logout(request)
