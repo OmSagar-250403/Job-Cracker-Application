@@ -5,6 +5,7 @@ from django.dispatch import receiver
 import uuid
 from base.models import BaseModel
 from base.emails import send_account_activation_email  # Import your email-sending function
+from products.models import Product, ColorVariant, SizeVariant, Coupon  # Corrected import statement
 
 class Profile(BaseModel):
     user = models.OneToOneField(
@@ -48,3 +49,30 @@ def create_user_profile(sender, instance, created, **kwargs):
     except Exception as e:
         # Log the error (replace with proper logging in production)
         print(f"Error in creating profile or sending email: {e}")
+
+class Cart(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="carts")
+    coupon = models.ForeignKey(Coupon, on_delete=models.SET_NULL, null=True, blank=True)
+    is_paid = models.BooleanField(default=False)
+
+    def get_cart_total(self):
+        cart_items = self.cart_items.all()
+        total_price = 0
+        for cart_item in cart_items:
+            total_price += cart_item.get_product_price()
+        return total_price
+
+class CartItem(BaseModel):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="cart_items")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    color_variant = models.ForeignKey(ColorVariant, on_delete=models.SET_NULL, null=True, blank=True)
+    size_variant = models.ForeignKey(SizeVariant, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def get_product_price(self):
+        price = self.product.price
+        if self.color_variant:
+            price += self.color_variant.price
+        if self.size_variant:
+            price += self.size_variant.price
+        return price * self.quantity

@@ -8,7 +8,10 @@ urlpatterns = [
     path('login/' , login_page , name="login" ),
     path('register/' , register_page , name="register" ),
     path('admin/', admin.site.urls), 
-     path('activate/<email_token>/' , activate_email , name="activate_email"), # Admin URL
+    path('cart/' , cart , name="cart" ),
+    path('cart/remove/<str:uid>/', remove_from_cart, name='remove_cart'),
+    path('activate/<email_token>/' , activate_email , name="activate_email"), # Admin URL
+    path('cart/add/<slug:product_slug>/', add_to_cart, name='add_to_cart'),
     # path('', include('home.urls')),  # Example: Include app-specific URLs
 ]
 
