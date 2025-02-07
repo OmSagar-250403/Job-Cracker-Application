@@ -1,33 +1,87 @@
 {% extends 'main.html' %}
-{% load static%}
+{% load static %}
 
 {% block content %}
+<head>
+    <style>
+        .card {
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #343a40;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .resume-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .resume-link:hover {
+            text-decoration: underline;
+        }
+        .not-submitted {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
 <div class="container card">
-    <h1>Candidates applied</h1>
+    <h1>Candidates Applied</h1>
     <div class="card-body">
         <table class="table table-hover">
-            <tr>
-                <th>Name</th>
-                <th>DOB</th>
-                <th>Resume</th>
-                <th>Gender</th>
-                <th>Mobile</th>
-                <th>Email</th>
-            </tr>
-            {% for c in candidates %}
+            <thead>
                 <tr>
-                    <td>{{c.name}}</td>
-                    <td>{{c.dob}}</td>
-                    {% if c.resume %}
-                    <td><a href='{{c.resume.url}}' download >{{c.resume}}</td></a></td>
-                    {% else %}
-                    <td>Not submitted</td>
-                    {% endif %}
-                    <td>{{c.gender}}</td>
-                    <td>{{c.mobile}}</td>
-                    <td>{{c.email}}</td>
+                    <th>Name</th>
+                    <th>DOB</th>
+                    <th>Resume</th>
+                    <th>Gender</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for c in candidates %}
+                    <tr>
+                        <td>{{ c.name }}</td>
+                        <td>{{ c.dob }}</td>
+                        <td>
+                            {% if c.resume %}
+                                <a href="{{ c.resume.url }}" download class="resume-link">{{ c.resume }}</a>
+                            {% else %}
+                                <span class="not-submitted">Not submitted</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ c.gender }}</td>
+                        <td>{{ c.mobile }}</td>
+                        <td>{{ c.email }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 </div>

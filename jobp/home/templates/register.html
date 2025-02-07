@@ -1,22 +1,94 @@
 {% extends 'main.html' %}
-{% load static%}
+{% load static %}
 
 {% block content %}
 <head>
     <style>
-        .maindiv{
-            border:1px solid black;
+        .register-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group label.required::after {
+            content: " *";
+            color: red;
+        }
+        .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 0;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+        .form-control:first-of-type {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        .form-control:last-of-type {
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        .btn-register {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .btn-register:hover {
+            background-color: #218838;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .login-link a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .login-link a:hover {
+            color: #0056b3;
         }
     </style>
 </head>
-<div class="maindiv jumbotron container">
 
-    <form method="POST"  action="">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input class="btn btn-success btn-lg" type="submit" value="Register">
-        <p>Already have an account<a href='{% url "login" %}'>Login</a></p>
-    </form>
+<div class="container">
+    <div class="register-container">
+        <h2>Register</h2>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="required">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Enter username" required>
 
+                <label class="required">Password</label>
+                <input type="password" name="password1" class="form-control" placeholder="Enter password" required>
+
+                <label class="required">Confirm Password</label>
+                <input type="password" name="password2" class="form-control" placeholder="Confirm password" required>
+            </div>
+            <input type="submit" value="Register" class="btn btn-register">
+        </form>
+        <p class="login-link">Already have an account? <a href='{% url "login" %}'>Login</a></p>
+    </div>
 </div>
 {% endblock %}
