@@ -33,7 +33,7 @@
 ### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/OmSagar-250403/Job-Cracker-Application.git
-cd job-cracker
+cd jobp
 ```
 
 ### 2️⃣ Create a Virtual Environment
